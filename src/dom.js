@@ -7,20 +7,20 @@ window.dom = {
 
     before(node,node2){
         node.parentNode.insertBefore(node2,node)
-    },//在节点node前，创建节点node2
+    },//在节点node前，插入节点node2
 
     after(node,node2){
         node.parentNode.insertBefore(node2,node.nextSibling)
-    },//在节点node后，创建节点node2
+    },//在节点node后，插入节点node2
 
     append(parent,node){
         parent.appendChild(node)
-    },//在节点parent内，创建子节点node
+    },//在节点parent内，插入子节点node
 
     wrap(node,parent){
         dom.before(node,parent)
         dom.append(parent,node)
-    },//在节点node外，创建父节点parent
+    },//在节点node外，插入父节点parent
 
 
 
@@ -46,22 +46,22 @@ window.dom = {
 
 
     attr(node,name,value){
-        if(arguments === 3){
-            node.setAttribute(name,value)
-        }else if(arguments === 2){
+        if(arguments.length === 3){
+            node.setAttribute(name, value)
+        }else if(arguments.length === 2){
             return node.getAttribute(name)
         }
     },//接受前两个参数时，读取节点的属性值
     //接受三个参数时，将节点的属性值更改为参数属性值
 
     text(node,string){
-        if(arguments === 2){
+        if(arguments.length === 2){
             if('innerText' in node){
                 node.innerText = string
             }else{
                 node.textContent = string
             }
-        }else if(arguments === 1){
+        }else if(arguments.length === 1){
             if('innerText' in node){
                 return node.innerText
             }else{
@@ -72,9 +72,9 @@ window.dom = {
     //接受一个参数时，读取节点的文本内容
 
     html(node,string){
-        if(arguments === 2){
+        if(arguments.length === 2){
             node.innerHTML = string
-        }else if(arguments === 1){
+        }else if(arguments.length === 1){
             return node.innerHTML
         }
     },//接受两个参数，更改节点的html内容为参数字符串
@@ -107,7 +107,7 @@ window.dom = {
             node.classList.remove(className)
         },
         has(node,className){
-            return node.classList.has(className)
+            return node.classList.contains(className)
         }
     },//对节点进行选择器操作
     //add()，向节点增加选择器
@@ -141,7 +141,7 @@ window.dom = {
     },//返回节点的子节点，伪数组
 
     siblings(node){
-        Array.from(node.parentNode.children).filter(n => n !== node)
+        return Array.from(node.parentNode.children).filter(n => n !== node)
     },//返回节点的同级节点
 
     next(node){
